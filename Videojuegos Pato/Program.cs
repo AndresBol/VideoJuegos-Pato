@@ -1,4 +1,10 @@
+using Microsoft.EntityFrameworkCore;
+using Videojuegos_Pato.Data;
+
 var builder = WebApplication.CreateBuilder(args);
+
+builder.Services.AddDbContext<VideojuegosPatoDataBase>(options =>
+    options.UseSqlServer(builder.Configuration.GetConnectionString("VideojuegosPatoDataBase") ?? throw new InvalidOperationException("Connection string 'VideojuegosPatoContext' not found")));
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
