@@ -1,18 +1,58 @@
-html {
-  font-size: 14px;
+@font-face {
+    font-family: 'StreamerFont';
+    src: url('media/StreamerDemo-eZ4Dg.otf');
 }
 
-@media (min-width: 768px) {
-  html {
-    font-size: 16px;
-  }
+body, header {
+    margin: 0;
+    padding: 0;
 }
 
-html {
-  position: relative;
-  min-height: 100%;
+header {
+    font-family: 'StreamerFont';
+    font-size: 20px;
+    font-weight: bold;
+    font-variant: small-caps;
 }
 
-body {
-  margin-bottom: 60px;
+.botonHeader {
+    font-size: 20px;
+    font-weight: bold;
+    font-variant: small-caps;
+}
+
+.letrasHeader {
+    text-align: end;
+}
+
+#navbarLogo:hover {
+    -webkit-transform: scale(1.04);
+}
+
+.letrasHeader:hover {
+    text-shadow: blue 2px 2px 4px;
+    -webkit-transform: scale(1.04);
+}
+/* body{
+    background-image: url("media/background.jpg");
+} */
+main {
+    padding: 40px;
+}
+
+nav {
+    background-color: #5a6eed;
+    box-shadow: #b1b0b0 2px 5px 5px;
+}
+
+#listaProductos {
+    background-color: #f2f2f2;
+    border-radius: 10px;
+    border-width: 2px;
+    border-style: groove;
+    padding: 12px;
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: center;
+    gap: 12px;
 }
