@@ -24,7 +24,12 @@ namespace Videojuegos_Pato.Controllers
             return View();
         }
 
-        public IActionResult Privacy()
+        public IActionResult Contact()
+        {
+            return View();
+        }
+
+        public IActionResult Product()
         {
             return View();
         }
