@@ -6,11 +6,16 @@ namespace Videojuegos_Pato.Models
     {
         [Required]
         public int ID { get; set; }
-        [Required]
+        [Required(ErrorMessage = "Porfavor ingrese su nombre")]
+        [Display(Name = "Nombre")]
         public string Name { get; set; }
-        [Required]
+        [Required(ErrorMessage = "Porfavor ingrese su contraseña")]
+        [Display(Name = "Contraseña")]
+        [DataType(DataType.Password)]
         public string Password { get; set; }
-        [Required]
+        [Required(ErrorMessage = "Porfavor ingrese su email")]
+        [Display(Name = "Email")]
+        [EmailAddress(ErrorMessage = "Porfavor ingrese un email valido")]
         public string Email { get; set; }
         [Required]
         public bool Admin { get; set; }
