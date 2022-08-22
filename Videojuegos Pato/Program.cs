@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.EntityFrameworkCore;
 using Videojuegos_Pato.Data;
 
@@ -7,6 +8,12 @@ builder.Services.AddDbContext<VideojuegosPatoDataBase>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("VideojuegosPatoDataBase") ?? throw new InvalidOperationException("Connection string 'VideojuegosPatoContext' not found")));
 
 // Add services to the container.
+builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+        .AddCookie(options =>
+        {
+            options.LoginPath = "/Home/Login";
+        });
+
 builder.Services.AddControllersWithViews();
 
 var app = builder.Build();
@@ -24,6 +31,7 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllerRoute(

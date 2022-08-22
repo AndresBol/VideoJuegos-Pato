@@ -1,8 +1,11 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Videojuegos_Pato.Data;
+using Videojuegos_Pato.Models;
 
 namespace Videojuegos_Pato.Controllers
 {
+    [Authorize]
     public class ProfileController : Controller
     {
         private readonly VideojuegosPatoDataBase _db;
@@ -12,7 +15,7 @@ namespace Videojuegos_Pato.Controllers
             _db = db;
         }
 
-        public IActionResult Information()
+        public IActionResult Index()
         {
             return View();
         }
