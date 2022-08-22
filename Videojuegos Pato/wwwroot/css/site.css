@@ -3,6 +3,13 @@
     src: url('media/StreamerDemo-eZ4Dg.otf');
 }
 
+.dropdown:hover .dropdown-menu{
+    display:block;
+}
+.dropdown-toggle::after {
+    content: none;
+}
+
 body, header {
     margin: 0;
     padding: 0;
@@ -16,9 +23,11 @@ header {
 }
 
 .botonHeader {
+    text-decoration: none;
     font-size: 20px;
     font-weight: bold;
     font-variant: small-caps;
+    color: white;
 }
 
 .letrasHeader {

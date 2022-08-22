@@ -55,9 +55,12 @@ namespace Videojuegos_Pato.Controllers
         {
             if (_db.users.FirstOrDefault(x => x.Email == email) != null && _db.users.FirstOrDefault(x => x.Password == password) != null)
             {
+                string username = _db.users.FirstOrDefault(x => x.Email == email).Name;
                 var claims = new List<Claim>
                 {
-                    new Claim(ClaimTypes.Name, email)
+                    new Claim(ClaimTypes.Name, username),
+                    new Claim(ClaimTypes.Email, email),
+                    new Claim("Admin","true")
                 };
 
                 var claimsIdentity = new ClaimsIdentity(claims, "Login");

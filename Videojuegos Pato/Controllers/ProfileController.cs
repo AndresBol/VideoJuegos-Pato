@@ -24,5 +24,10 @@ namespace Videojuegos_Pato.Controllers
         {
             return View();
         }
+
+        public IActionResult AccessDenied()
+        {
+            return View();
+        }
     }
 }
