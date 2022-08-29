@@ -60,8 +60,11 @@ namespace Videojuegos_Pato.Controllers
                 {
                     new Claim(ClaimTypes.Name, username),
                     new Claim(ClaimTypes.Email, email),
-                    new Claim("Admin","true")
                 };
+                if (_db.users.FirstOrDefault(x => x.Email == email).Admin)
+                {
+                    claims.Add(new Claim("Admin", "true"));
+                }
 
                 var claimsIdentity = new ClaimsIdentity(claims, "Login");
 

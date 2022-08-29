@@ -1,0 +1,166 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@model List<Advertisement>
+@{
+}
+
+@*Modals Bootstrap*@
+@*Edit Modal*@
+<div class="modal fade" id="Edit" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog modal-xl modal-fullscreen-sm-down">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="staticBackdropLabel">Editar Usuario</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+        @using (Html.BeginForm("Edit", "Advertisements", FormMethod.Post, new { enctype = "multipart/form-data" }))
+        {
+            <div class="modal-body">
+                <label class="form-label">Id del Anuncio</label>
+                <input id="txtId" type="number" name="id" min="0" required class="form-control" readonly>
+                <br>
+                <div class="mb-3">
+                    <div class="card" style="width: 18rem;">
+                      <div class="card-header">
+                        Imagen del Anuncio
+                      </div>
+                      <img class="mb-2" id="imgAd" src="">
+                      <div class="card-body">
+                        <p class="card-text" id="txtName"></p>
+                      </div>
+                        <div class="mb-3">
+                          <label for="formFile" class="form-label">Adjuntar imagen</label>
+                          <input class="form-control" name="image" type="file" id="image">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer d-flex justify-content-between">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                <button type="submit" class="btn btn-primary">Enviar</button>
+            </div>
+        }
+    </div>
+  </div>
+</div>
+@*Create Modal*@
+<div class="modal fade" id="Create" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog modal-xl modal-fullscreen-sm-down">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="staticBackdropLabel">Crear Anuncio</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+        @using (Html.BeginForm("Insert", "Advertisements", FormMethod.Post, new { enctype = "multipart/form-data" }))
+        {
+            <div class="modal-body">
+                <div class="mb-3">
+                    <label class="form-label">Imagen del Anuncio</label>
+                    <div class="mb-3">
+                      <label for="formFile" class="form-label">Adjuntar imagen</label>
+                      <input class="form-control" name="image" type="file" id="image">
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer d-flex justify-content-between">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                <button type="submit" class="btn btn-primary">Enviar</button>
+            </div>
+        }
+    </div>
+  </div>
+</div>
+@*Delete Modal*@
+<div class="modal fade" id="Delete" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog modal-xl modal-fullscreen-sm-down">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="staticBackdropLabel">Eliminar Anuncio</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+        @using (Html.BeginForm("Delete", "Advertisements", FormMethod.Post))
+        {
+            <div class="modal-body">
+                <label class="form-label">Id del Anuncio</label>
+                <input id="txtId" type="number" name="id" min="0" required class="form-control" readonly>
+                <br>
+                <div class="mb-3">
+                    <div class="card" style="width: 18rem;">
+                      <div class="card-header">
+                        Imagen del Anuncio
+                      </div>
+                      <img class="mb-2" id="imgAd" src="">
+                      <div class="card-body">
+                        <p class="card-text" id="txtName"></p>
+                      </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer d-flex justify-content-between">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                <button type="submit" class="btn btn-danger">Eliminar</button>
+            </div>
+        }
+    </div>
+  </div>
+</div>
+@*Maintenance*@
+<h1>Mantenimiento de Anuncios</h1>
+<br />
+<a class="btn btn-success mb-1" data-bs-target="#Create" data-bs-toggle="modal">
+    <i class="bi bi-person-plus"></i>
+    Nuevo Anuncio
+</a>
+@using (Html.BeginForm("Index", "Advertisements", FormMethod.Post))
+{
+    <input type="number" name="id" min="0" class="form-control" placeholder="Ingrese el ID del anuncio">
+    <button type="submit" class="btn btn-primary">Obtener Anuncio</button>
+}
+<br />
+
+<table class="table table-striped table-bordered">
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Imagen</th>
+            <th>Acción</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var advertisement in Model)
+        {
+            <tr>
+                <td>@advertisement.ID</td>
+                <td><img src="~/media/Advertisement/@advertisement.ImageName"></td>
+                <td>
+                    <button class="btn btn-primary" data-bs-target="#Edit" data-bs-toggle="modal" data-bs-id="@advertisement.ID" data-bs-name="@advertisement.ImageName">Editar</button>
+                    <button class="btn btn-warning" data-bs-target="#Delete" data-bs-toggle="modal" data-bs-id="@advertisement.ID" data-bs-name="@advertisement.ImageName">Delete</button>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+@*JS modals*@
+<script>
+    //EditModal
+var editModal = document.getElementById('Edit');
+editModal.addEventListener('show.bs.modal', function (event) {
+    var button = event.relatedTarget;
+    var id = button.getAttribute('data-bs-id');
+    var name = button.getAttribute('data-bs-name');
+    editModal.querySelector('.modal-body input').value = id;
+    editModal.querySelector('.modal-body #imgAd').src = "/media/Advertisement/"+name;
+})
+
+    //delete Modal
+    var deleteModal = document.getElementById('Delete');
+deleteModal.addEventListener('show.bs.modal', function (event) {
+    var button = event.relatedTarget;
+    var id = button.getAttribute('data-bs-id');
+    var name = button.getAttribute('data-bs-name');
+    deleteModal.querySelector('.modal-body #txtId').value = id;
+    deleteModal.querySelector('.modal-body #txtName').innerHTML = name;
+    deleteModal.querySelector('.modal-body #imgAd').src = "/media/Advertisement/"+name;
+})
+</script>

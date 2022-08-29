@@ -3,22 +3,22 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - Videojuegos_Pato</title>
+    <title>@ViewData["Title"] Videojuegos Pato</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/Videojuegos_Pato.styles.css" asp-append-version="true" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="~/jquery/jquery.min.js"></script>
     <script>
         $(window).resize(function(e){
         if($(window).width() < 600) {
             console.log($(window).width());
             $("#navbarLogo").each(function() {
-                $(this).attr("src","media/VideojuegosPato/Isotipo.webp");
+                $(this).attr("src","/media/VideojuegosPato/Isotipo.webp");
             });
         } else {
             $("#navbarLogo").each(function() {
-                $(this).attr("src","media/VideojuegosPato/Imagotipo.webp");
+                $(this).attr("src","/media/VideojuegosPato/Imagotipo.webp");
             });                      
         }        
         });
@@ -27,49 +27,53 @@
 <body>
     <header>
         <nav class="navbar navbar-expand-xl navbar-light bg-*">
-          <div class="container-fluid">
-            <a asp-area="" asp-controller="Home" asp-action="Index"><img  id="navbarLogo" src="~/media/VideojuegosPato/Imagotipo.webp" height="80px"/></a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-              <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse justify-content-end mt-2" id="navbarSupportedContent">
-              <div class="d-flex flex-xl-row-reverse justify-content-between align-items-baseline">
-                <div class="d-flex flex-xl-row flex-column gap-2">
-                    <ul class="navbar-nav">
-                        @if (User.Identity.IsAuthenticated)
-                        {
-                            <form asp-controller="Home" asp-action="Logout" method="post">
-                                <li class="dropdown dropdown">
-                                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                        <a class="nav-link active text-light letrasHeader" asp-controller="Profile" asp-action="Index">
-                                            @User.Identity.Name
-                                            <i class="bi bi-person-circle"></i>
-                                        </a>
-                                    </a>
-                                    <ul class="dropdown-menu" style="background-color: #5a6eed;" aria-labelledby="navbarDropdown">
-                                        <li><button class="btn btn-outline-light botonHeader">Logout</button></li>
-                                    </ul>
-                                </li>
-                            </form>
-                        }
-                        else
-                        {
-                            <a class="btn btn-outline-light botonHeader" asp-controller="Home" asp-action="Login">Iniciar Sesion</a>
-                            <a class="btn btn-outline-light botonHeader" asp-controller="Home" asp-action="Signup">Registrarse</a>     
-                        }
-                    </ul>
+            <div class="container-fluid">
+                <a asp-area="" asp-controller="Home" asp-action="Index"><img id="navbarLogo" src="~/media/VideojuegosPato/Imagotipo.webp" height="80px"/></a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                  <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse justify-content-end mt-2" id="navbarSupportedContent">
+                    <div class="d-flex flex-xl-row-reverse justify-content-between align-items-baseline">
+                        <div class="d-flex flex-xl-row flex-column gap-2">
+                            <ul class="navbar-nav">
+                                @if (User.Identity.IsAuthenticated)
+                                {
+                                    <form asp-controller="Home" asp-action="Logout" method="post">
+                                        <li class="dropdown dropdown">
+                                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                                <a class="nav-link active text-light letrasHeader" asp-controller="Profile" asp-action="Index">
+                                                    @User.Identity.Name
+                                                    <i class="bi bi-person-circle"></i>
+                                                </a>
+                                            </a>
+                                            <ul class="dropdown-menu" style="background-color: #5a6eed;" aria-labelledby="navbarDropdown">
+                                                <li><button class="dropdown-item btn btn-outline-light botonHeader">Logout</button></li>
+                                            </ul>
+                                        </li>
+                                    </form>
+                                }
+                                else
+                                {
+
+                                    <a class="btn btn-outline-light botonHeader mx-2" asp-controller="Home" asp-action="Login">Iniciar Sesion</a>
+                                    <a class="btn btn-outline-light botonHeader" asp-controller="Home" asp-action="Signup">Registrarse</a>     
+                                }
+                            </ul>
+                        </div>
+                        <ul class="navbar-nav">
+                            <li class="nav-item">
+                            <a class="nav-link active text-light" aria-current="page" asp-area="" asp-controller="Home" asp-action="Catalog"><p class="letrasHeader me-2">Catalogo</p></a>
+                            </li>
+                            <li class="nav-item">
+                                @if (@User.HasClaim("Admin","true"))
+                                {
+                                    <a class="nav-link active text-light" aria-current="page" asp-area="" asp-controller="Maintenance" asp-action="Index"><p class="letrasHeader">Mantenimientos</p></a>
+                                }
+                            </li>
+                        </ul>
+                    </div>
                 </div>
-                <ul class="navbar-nav">
-                  <li class="nav-item">
-                    <a class="nav-link active text-light" aria-current="page" asp-area="" asp-controller="Home" asp-action="Catalog"><p class="letrasHeader me-2">Catalogo</p></a>
-                  </li>
-                  <li class="nav-item">
-                    <a class="nav-link active text-light" aria-current="page" asp-area="" asp-controller="Maintenance" asp-action="Maintenance"><p class="letrasHeader">Mantenimientos</p></a>
-                  </li>
-                </ul>
-              </div>
             </div>
-          </div>
         </nav>
     </header>
     <div class="container">

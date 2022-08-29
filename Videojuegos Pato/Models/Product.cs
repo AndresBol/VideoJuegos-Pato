@@ -24,6 +24,8 @@ namespace Videojuegos_Pato.Models
         public int Quantity { get; set; }
         [Required]
         public List<User> LikedByUsers { get; set; }
+        [Required]
+        public List<Cart> Carts { get; set; }
 
     }
 }

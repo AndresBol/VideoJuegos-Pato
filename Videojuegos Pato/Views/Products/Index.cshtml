@@ -1,0 +1,187 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@model dynamic
+@{
+}
+
+@*Modals Bootstrap*@
+@*Edit Modal*@
+<div class="modal fade" id="Edit" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog modal-xl modal-fullscreen-sm-down">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="staticBackdropLabel">Editar VideoJuego</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+        @using (Html.BeginForm("Edit", "Products", FormMethod.Post))
+        {
+            <div class="modal-body">
+                <div class="mb-3">
+                    <label class="form-label">Id del VideoJuego</label>
+                    <input type="number" name="id" min="0" required class="form-control" readonly>
+                    <label class="form-label">Nombre del VideoJuego</label>
+                    <input type="text" name="name" required class="form-control">
+                    <label class="form-label">Descripción</label>
+                    <input type="text" name="description" required class="form-control">
+                    <label class="form-label">Categoria</label>
+                    <select class="form-select" aria-label="Categorias" name="categoryId">
+                        @foreach (var category in Model.categories)
+                        {
+                            <option value="@category.ID">@category.Name</option>
+                        }
+                    </select>
+                    <label class="form-label">Tips</label>
+                    <textarea name="tip" rows="5" required class="form-control"></textarea>
+                    <label class="form-label">Precio</label>
+                    <input type="number" step="0.01" name="price" required class="form-control">
+                    <label class="form-label">Cantidad</label>
+                    <input type="number" name="quantity" required class="form-control">
+                    <label class="form-label">Imagen</label>
+                    <input type="text" name="imageName" required class="form-control">
+                    <label class="form-label">Video</label>
+                    <input type="text" name="video" required class="form-control">
+                </div>
+            </div>
+            <div class="modal-footer d-flex justify-content-between">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                <button type="submit" class="btn btn-primary">Enviar</button>
+            </div>
+        }
+    </div>
+  </div>
+</div>
+@*Create Modal*@
+<div class="modal fade" id="Create" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog modal-xl modal-fullscreen-sm-down">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="staticBackdropLabel">Agregar VideoJuego</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+        @using (Html.BeginForm("Insert", "Products", FormMethod.Post))
+        {
+            <div class="modal-body">
+                <div class="mb-3">
+                    <label class="form-label">Nombre del VideoJuego</label>
+                    <input type="text" name="name" required class="form-control">
+                    <label class="form-label">Descripción</label>
+                    <input type="text" name="description" required class="form-control">
+                    <label class="form-label">Categoria</label>
+                    <select class="form-select" aria-label="Categorias" name="categoryId">
+                        @foreach (var category in Model.categories)
+                        {
+                            <option value="@category.ID">@category.Name</option>
+                        }
+                    </select>
+                    <label class="form-label">Tips</label>
+                    <textarea name="tip" rows="5" required class="form-control"></textarea>
+                    <label class="form-label">Precio</label>
+                    <input type="number" step="0.01" name="price" required class="form-control">
+                    <label class="form-label">Cantidad</label>
+                    <input type="number" name="quantity" required class="form-control">
+                    <label class="form-label">Imagen</label>
+                    <input type="text" name="imageName" required class="form-control">
+                    <label class="form-label">Video</label>
+                    <input type="text" name="video" required class="form-control">
+                </div>
+            </div>
+            <div class="modal-footer d-flex justify-content-between">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                <button type="submit" class="btn btn-primary">Enviar</button>
+            </div>
+        }
+    </div>
+  </div>
+</div>
+@*Delete Modal*@
+<div class="modal fade" id="Delete" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog modal-xl modal-fullscreen-sm-down">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="staticBackdropLabel">Eliminar VideoJuego</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+        @using (Html.BeginForm("Delete", "Products", FormMethod.Post))
+        {
+            <div class="modal-body">
+                <div class="mb-3">
+                    <label class="form-label">Id del VideoJuego</label>
+                    <input type="number" name="id" min="0" required class="form-control" readonly>
+                </div>
+            </div>
+            <div class="modal-footer d-flex justify-content-between">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                <button type="submit" class="btn btn-danger">Eliminar</button>
+            </div>
+        }
+    </div>
+  </div>
+</div>
+@*Maintenance*@
+<h1>Mantenimiento de VideoJuegos</h1>
+<br />
+<a class="btn btn-success mb-1" data-bs-target="#Create" data-bs-toggle="modal">
+    <i class="bi bi-person-plus"></i>
+    Nuevo VideoJuego
+</a>
+@using (Html.BeginForm("Index", "Products", FormMethod.Post))
+{
+    <input type="number" name="id" min="0" class="form-control" placeholder="Ingrese el ID del VideoJuego">
+    <button type="submit" class="btn btn-primary">Obtener VideoJuego</button>
+}
+<br />
+
+<table class="table table-striped table-bordered">
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Nombre</th>
+            <th>Descripción</th>
+            <th>Categoria</th>
+            <th>Tip</th>
+            <th>Precio</th>
+            <th>Cantidad</th>
+            <th>Imagen</th>
+            <th>Video</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var product in Model.products)
+        {
+            <tr>
+                <td>@product.ID</td>
+                <td>@product.Name</td>
+                <td>@product.Description</td>
+                <td>@product.Category.Name</td>
+                <td>@product.Tip</td>
+                <td>@product.Price</td>
+                <td>@product.Quantity</td>
+                <td>@product.ImageName</td>
+                <td>@product.Video</td>
+                <td>
+                    <button class="btn btn-primary" data-bs-target="#Edit" data-bs-toggle="modal" data-bs-id="@product.ID">Editar</button>
+                    <button class="btn btn-warning" data-bs-target="#Delete" data-bs-toggle="modal" data-bs-id="@product.ID">Delete</button>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+@*JS modals*@
+<script>
+    //EditModal
+var editModal = document.getElementById('Edit');
+editModal.addEventListener('show.bs.modal', function (event) {
+    var button = event.relatedTarget;
+    var id = button.getAttribute('data-bs-id');
+    editModal.querySelector('.modal-body input').value = id;
+})
+
+    //delete Modal
+    var deleteModal = document.getElementById('Delete');
+deleteModal.addEventListener('show.bs.modal', function (event) {
+    var button = event.relatedTarget;
+    var id = button.getAttribute('data-bs-id');
+    deleteModal.querySelector('.modal-body input').value = id;
+})
+</script>

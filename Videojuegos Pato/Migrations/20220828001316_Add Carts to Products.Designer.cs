@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Videojuegos_Pato.Data;
 
@@ -10,9 +11,10 @@ using Videojuegos_Pato.Data;
 namespace Videojuegos_Pato.Migrations
 {
     [DbContext(typeof(VideojuegosPatoDataBase))]
-    partial class VideojuegosPatoDataBaseModelSnapshot : ModelSnapshot
+    [Migration("20220828001316_Add Carts to Products")]
+    partial class AddCartstoProducts
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
