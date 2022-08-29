@@ -1,6 +1,17 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
-@{
-    
-}
+﻿    
+@model List<Product>
+<h2>Todos los Productos</h2>
+<div id="listaProductos" class="row row-cols-2 row-cols-xl-5 row-cols-xxl-7">
+    @foreach (var product in Model)
+    {
+        <div class="card col pt-2 m-2" style="min-width: 10rem; width: 10rem; border-radius: 10px;">
+            <img class="card-img-top" height="315" src="~/media/ProductImages/@product.ImageName">
+            <div class="card-body">
+                <p class="card-text">@product.Name</p>
+                <footer class="card-unit">@product.Quantity unid</footer>
+                <p class="card-text">$@product.Price</p>
+                <a class="btn btn-primary" asp-action="Product">Ver más ></a>
+            </div>
+        </div>
+    }
+</div>

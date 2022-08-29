@@ -14,7 +14,7 @@
         <h5 class="modal-title" id="staticBackdropLabel">Editar VideoJuego</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
-        @using (Html.BeginForm("Edit", "Products", FormMethod.Post))
+        @using (Html.BeginForm("Edit", "Products", FormMethod.Post, new { enctype = "multipart/form-data" }))
         {
             <div class="modal-body">
                 <div class="mb-3">
@@ -38,7 +38,7 @@
                     <label class="form-label">Cantidad</label>
                     <input type="number" name="quantity" required class="form-control">
                     <label class="form-label">Imagen</label>
-                    <input type="text" name="imageName" required class="form-control">
+                    <input class="form-control" name="image" type="file" id="image">
                     <label class="form-label">Video</label>
                     <input type="text" name="video" required class="form-control">
                 </div>
@@ -59,7 +59,7 @@
         <h5 class="modal-title" id="staticBackdropLabel">Agregar VideoJuego</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
-        @using (Html.BeginForm("Insert", "Products", FormMethod.Post))
+        @using (Html.BeginForm("Insert", "Products", FormMethod.Post, new { enctype = "multipart/form-data" }))
         {
             <div class="modal-body">
                 <div class="mb-3">
@@ -81,7 +81,7 @@
                     <label class="form-label">Cantidad</label>
                     <input type="number" name="quantity" required class="form-control">
                     <label class="form-label">Imagen</label>
-                    <input type="text" name="imageName" required class="form-control">
+                    <input class="form-control" name="image" type="file" id="image">
                     <label class="form-label">Video</label>
                     <input type="text" name="video" required class="form-control">
                 </div>
@@ -157,8 +157,8 @@
                 <td>@product.Tip</td>
                 <td>@product.Price</td>
                 <td>@product.Quantity</td>
-                <td>@product.ImageName</td>
-                <td>@product.Video</td>
+                <td><img height="315" src="~/media/ProductImages/@product.ImageName"></td>
+                <td><iframe width="560" height="315" src="https://www.youtube.com/embed/@product.Video" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></td>
                 <td>
                     <button class="btn btn-primary" data-bs-target="#Edit" data-bs-toggle="modal" data-bs-id="@product.ID">Editar</button>
                     <button class="btn btn-warning" data-bs-target="#Delete" data-bs-toggle="modal" data-bs-id="@product.ID">Delete</button>

@@ -2,24 +2,33 @@
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
+using System.Dynamic;
 using System.Security.Claims;
 using Videojuegos_Pato.Data;
 using Videojuegos_Pato.Models;
+using Videojuegos_Pato.Service;
 
 namespace Videojuegos_Pato.Controllers
 {
     public class HomeController : Controller
     {
+        IAdvertisementService _advertisementService = null;
+        IProductService _productService = null;
         private readonly VideojuegosPatoDataBase _db;
 
-        public HomeController(VideojuegosPatoDataBase db)
+        public HomeController(VideojuegosPatoDataBase db, IAdvertisementService advertisementService, IProductService productService)
         {
             _db = db;
+            _advertisementService = advertisementService;
+            _productService = productService;
         }
 
         public IActionResult Index()
         {
-            return View();
+            dynamic productsAndAdvertisements = new ExpandoObject();
+            productsAndAdvertisements.products = _productService.GetProducts(0);
+            productsAndAdvertisements.advertisements = _advertisementService.GetAdvertisements(0);
+            return View(productsAndAdvertisements);
         }
 
         public IActionResult Signup()
@@ -86,7 +95,8 @@ namespace Videojuegos_Pato.Controllers
 
         public IActionResult Catalog()
         {
-            return View();
+            List<Product> products = _productService.GetProducts(0);
+            return View("Catalog", products);
         }
 
         public IActionResult Contact()

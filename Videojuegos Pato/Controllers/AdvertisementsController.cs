@@ -43,11 +43,18 @@ namespace Videojuegos_Pato.Controllers
             if (image != null)
             {
                 string fileName = image.FileName;
-                var path = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/media/Advertisement", fileName);
+                if (_db.advertisements.FirstOrDefault(x => x.ImageName == fileName) == null)
+                {
+                    var path = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/media/Advertisement", fileName);
 
-                var stream = new FileStream(path, FileMode.Create);
-                image.CopyToAsync(stream);
-                _advertisementService.Insert(fileName);
+                    var stream = new FileStream(path, FileMode.Create);
+                    image.CopyToAsync(stream);
+                    _advertisementService.Insert(fileName);
+                }
+                else
+                {
+                    Response.WriteAsync("<script>alert('Ya hay un Anuncio con ese nombre de archivo')</script>");
+                }
             }
             return Index();
         }

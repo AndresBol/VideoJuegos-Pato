@@ -24,12 +24,12 @@ namespace Videojuegos_Pato.Service
 
         public void Insert(string Name, string Description, int CategoryId, string Tip, double Price, int Quantity, string ImageName, string Video)
         {
-            _db.Database.ExecuteSqlRaw($"SP_InsertProducts {Name},'{Description}',{CategoryId},{ImageName},'{Tip}',{Video},'{Price}',{Quantity}");
+            _db.Database.ExecuteSqlRaw($"SP_InsertProducts {Name},'{Description}',{CategoryId},'{ImageName}','{Tip}','{Video}','{Price}',{Quantity}");
         }
 
         public void Update(int Id, string Name, string Description, int CategoryId, string Tip, double Price, int Quantity, string ImageName, string Video)
         {
-            _db.Database.ExecuteSqlRaw($"SP_ChangeProducts {Id},{Name},'{Description}',{CategoryId},{ImageName},'{Tip}',{Video},'{Price}',{Quantity}");
+            _db.Database.ExecuteSqlRaw($"SP_ChangeProducts {Id},{Name},'{Description}',{CategoryId},'{ImageName}','{Tip}',{Video},'{Price}',{Quantity}");
         }
     }
 }

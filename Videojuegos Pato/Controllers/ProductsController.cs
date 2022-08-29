@@ -40,17 +40,50 @@ namespace Videojuegos_Pato.Controllers
         }
 
         [HttpPost]
-        public IActionResult Insert(string name, string description, int categoryId, string tip, double price, int quantity, string imageName, string video)
+        public IActionResult Insert(string name, string description, int categoryId, string tip, double price, int quantity, IFormFile image, string video)
         {
+            if (image != null)
+            {
+                string fileName = image.FileName;
+                if (_db.products.FirstOrDefault(x => x.ImageName == fileName) == null)
+                {
+                    var path = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/media/ProductImages", fileName);
 
-            _productService.Insert(name, description, categoryId, tip, price, quantity, imageName, video);
+                    var stream = new FileStream(path, FileMode.Create);
+                    image.CopyToAsync(stream);
+                    _productService.Insert(name, description, categoryId, tip, price, quantity, fileName, video);
+                }
+                else
+                {
+                    Response.WriteAsync("<script>alert('Ya hay una imagen perteneciente a un VideoJuego con ese nombre de archivo')</script>");
+                }
+            }
             return Index();
         }
 
         [HttpPost]
-        public IActionResult Edit(int id, string name, string description, int categoryId, string tip, double price, int quantity, string imageName, string video)
+        public IActionResult Edit(int id, string name, string description, int categoryId, string tip, double price, int quantity, IFormFile image, string video)
         {
-            _productService.Update(id, name, description, categoryId, tip, price, quantity, imageName, video);
+            if (image != null)
+            {
+                string fileName = image.FileName;
+                //que la imagen se cree solo si no existe en la base de datos ó si existe pero es del mismo advertisement
+                //para evitar que la imagen tenga el mismo nombre que otros advertisement
+                if (_db.products.FirstOrDefault(x => x.ImageName == fileName) == null || _db.products.Find(id).ImageName == fileName != null)
+                {
+                    //borrar anterior imagen
+                    //System.IO.File.Delete("wwwroot/media/Advertisement/" + _db.advertisements.Find(id).ImageName);
+                    var path = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/media/ProductImages", fileName);
+                    var stream = new FileStream(path, FileMode.Create);
+                    image.CopyToAsync(stream);
+                    var product = _db.products.Find(id);
+                    _productService.Update(id, name, description, categoryId, tip, price, quantity, fileName, video);
+                }
+                else
+                {
+                    Response.WriteAsync("<script>alert('Ya existe una imagen perteneciente a un VideoJuego con ese nombre de archivo')</script>");
+                }
+            }
             return Index();
         }
 
